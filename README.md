@@ -70,6 +70,50 @@ mvn spring-boot:run   # dla Java
 dotnet run  # dla C#
 ```
 
+## 🧪 Testowanie z Postman
+
+### Konfiguracja
+
+1. Zainstaluj [Postman](https://www.postman.com/downloads/)
+2. Zaimportuj kolekcję `Calculator API Tests.postman_collection.json`
+3. Ustaw zmienną środowiskową `apiKey` w Postman na wartość z twojego pliku `.env`
+
+### Dostępne Endpointy
+
+Wszystkie endpointy wymagają nagłówka `x-api-key` z poprawnym kluczem API.
+
+#### Dodawanie
+- **POST** `/api/calculator/add`
+- Body: `{ "a": number, "b": number }`
+
+#### Odejmowanie
+- **POST** `/api/calculator/subtract`
+- Body: `{ "a": number, "b": number }`
+
+#### Mnożenie
+- **POST** `/api/calculator/multiply`
+- Body: `{ "a": number, "b": number }`
+
+#### Dzielenie
+- **POST** `/api/calculator/divide`
+- Body: `{ "a": number, "b": number }`
+
+#### Pierwiastek kwadratowy
+- **POST** `/api/calculator/sqrt`
+- Body: `{ "number": number }`
+
+#### Potęgowanie
+- **POST** `/api/calculator/power`
+- Body: `{ "a": number, "b": number }`
+
+### Automatyczne Testy
+
+Kolekcja zawiera testy sprawdzające:
+- Poprawność obliczeń
+- Obsługę błędnych danych wejściowych
+- Walidację autoryzacji
+- Obsługę przypadków brzegowych (np. dzielenie przez zero)
+
 ## 📝 Licencja
 
 [MIT](LICENSE)

@@ -1,0 +1,377 @@
+{
+  "info": {
+    "name": "Calculator API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Addition",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/calculator/add",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "calculator", "add"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"a\": 5,\n\t\"b\": 3\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has correct result', function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.result).to.equal(8);",
+              "});",
+              "",
+              "pm.test('Invalid input returns 400', function() {",
+              "    const echoPostRequest = {",
+              "        url: pm.request.url.toString(),",
+              "        method: 'POST',",
+              "        header: {",
+              "            'x-api-key': pm.variables.get('apiKey'),",
+              "            'Content-Type': 'application/json'",
+              "        },",
+              "        body: {",
+              "            mode: 'raw',",
+              "            raw: JSON.stringify({ a: 'invalid', b: 3 })",
+              "        }",
+              "    };",
+              "    pm.sendRequest(echoPostRequest, function (err, res) {",
+              "        pm.expect(res.code).to.equal(400);",
+              "        pm.expect(res.json().error).to.equal('Invalid input');",
+              "    });",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subtraction",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/calculator/subtract",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "calculator", "subtract"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"a\": 10,\n\t\"b\": 4\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has correct result', function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.result).to.equal(6);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Multiplication",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/calculator/multiply",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "calculator", "multiply"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"a\": 6,\n\t\"b\": 7\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has correct result', function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.result).to.equal(42);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Division",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/calculator/divide",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "calculator", "divide"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"a\": 20,\n\t\"b\": 5\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has correct result', function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.result).to.equal(4);",
+              "});",
+              "",
+              "pm.test('Division by zero returns error', function() {",
+              "    const echoPostRequest = {",
+              "        url: pm.request.url.toString(),",
+              "        method: 'POST',",
+              "        header: {",
+              "            'x-api-key': pm.variables.get('apiKey'),",
+              "            'Content-Type': 'application/json'",
+              "        },",
+              "        body: {",
+              "            mode: 'raw',",
+              "            raw: JSON.stringify({ a: 10, b: 0 })",
+              "        }",
+              "    };",
+              "    pm.sendRequest(echoPostRequest, function (err, res) {",
+              "        pm.expect(res.code).to.equal(400);",
+              "        pm.expect(res.json().error).to.equal('Division by zero is not allowed');",
+              "    });",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Square Root",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/calculator/sqrt",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "calculator", "sqrt"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"number\": 25\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has correct result', function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.result).to.equal(5);",
+              "});",
+              "",
+              "pm.test('Negative number returns error', function() {",
+              "    const echoPostRequest = {",
+              "        url: pm.request.url.toString(),",
+              "        method: 'POST',",
+              "        header: {",
+              "            'x-api-key': pm.variables.get('apiKey'),",
+              "            'Content-Type': 'application/json'",
+              "        },",
+              "        body: {",
+              "            mode: 'raw',",
+              "            raw: JSON.stringify({ number: -1 })",
+              "        }",
+              "    };",
+              "    pm.sendRequest(echoPostRequest, function (err, res) {",
+              "        pm.expect(res.code).to.equal(400);",
+              "        pm.expect(res.json().error).to.equal('Invalid input');",
+              "    });",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Power",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/calculator/power",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "calculator", "power"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"a\": 2,\n\t\"b\": 8\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has correct result', function() {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.result).to.equal(256);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Authentication Test",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "invalid_key",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/calculator/add",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "calculator", "add"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"a\": 1,\n\t\"b\": 1\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Invalid API key returns 401', function() {",
+              "    pm.response.to.have.status(401);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.error).to.equal('Unauthorized');",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
