@@ -1,12 +1,15 @@
 import { Calculator } from './calculator';
 
+
+const API_KEY = "12345_Secret_key"
 // Create an instance of the calculator
 const calculator = new Calculator();
 
 // Example usage
 console.log('Calculator Demo:');
 console.log('--------------');
-
+console.log('API Key:', API_KEY);
+console.log('--------------');
 // Addition
 const sum = calculator.add(5, 3);
 console.log(`5 + 3 = ${sum}`);
